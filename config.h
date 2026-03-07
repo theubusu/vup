@@ -1,0 +1,5 @@
+#define CHUNK_SIZE 0x200000
+
+//#define ENCRYPT 1
+//#define ENC_KEY "012345678901234"
+//#define ENC_IV  "012345678901234"
