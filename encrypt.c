@@ -29,3 +29,32 @@ int encrypt(unsigned char *plaintext, int plaintext_len,
 
     return ciphertext_len;
 }
+
+
+int decrypt(unsigned char *ciphertext, int ciphertext_len,
+            unsigned char *key, unsigned char *iv,
+            unsigned char *plaintext)
+{
+    EVP_CIPHER_CTX *ctx;
+    int len;
+    int plaintext_len;
+
+    // Create context
+    ctx = EVP_CIPHER_CTX_new();
+
+    // Initialize decryption operation
+    EVP_DecryptInit_ex(ctx, EVP_aes_128_cbc(), NULL, key, iv);
+
+    // Decrypt the ciphertext
+    EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, ciphertext_len);
+    plaintext_len = len;
+
+    // Finalize decryption (removes padding)
+    EVP_DecryptFinal_ex(ctx, plaintext + len, &len);
+    plaintext_len += len;
+
+    // Free context
+    EVP_CIPHER_CTX_free(ctx);
+
+    return plaintext_len;
+}

@@ -174,7 +174,7 @@ int main(int argc, char *argv[]) {
 
                 int compResult = compress(compBuf, &destLen, buf, chunkStoredSize);
                 if (compResult != Z_OK) {
-                    perror("ERROR!! - compress fail to compress data");
+                    printf("ERROR!! - compress fail to compress data");
                     return 1;
                 }
                 
@@ -214,7 +214,7 @@ int main(int argc, char *argv[]) {
             if (doSign == 1) { // RSA sign utilize OPENSSL library
                 printf("[chunk%i] sign..\n", chunkIdx);
 
-                if (!sign_data(buf, chunkStoredSize, sigKeyPath, sig)) {
+                if (!signDataRSA1024(buf, chunkStoredSize, sigKeyPath, sig)) {
                     perror("ERROR!! - sign fail to sign data");
                     return 1;
                 }
@@ -309,7 +309,7 @@ int main(int argc, char *argv[]) {
     if (doSign == 1) {
         printf("[exhdr] sign..\n");
 
-        if (!sign_data(exBuf, exSize - SIGNATURE_SIZE, sigKeyPath, sig)) {
+        if (!signDataRSA1024(exBuf, exSize - SIGNATURE_SIZE, sigKeyPath, sig)) {
             perror("ERROR!! - sign fail to sign data");
             return 1;
         }
