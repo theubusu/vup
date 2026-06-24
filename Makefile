@@ -12,6 +12,9 @@ client:
 n_vup:
 	gcc n_vup.c -o $(OUT)/n_vup
 
+n_ezcrypt:
+	gcc n_ezcrypt.c -o $(OUT)/n_ezcrypt
+
 clean:
 	$(RM) $(OUT)/pack
 	$(RM) $(OUT)/client
